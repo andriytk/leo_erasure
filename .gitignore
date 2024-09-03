@@ -35,11 +35,11 @@
 *~
 *.swp
 
-# Rebar / Erlang Folders
-deps/
-ebin/
+# Rebar / Erlang folders and files
 priv/
 blocks/
+_build/
+rebar.lock
 
 # Testing
 *.dec
@@ -51,7 +51,6 @@ blocks/
 erl_crash.dump
 rel/example_project
 .concrete/DEV_MODE
-.rebar
 
 c_src/gf-complete
 c_src/jerasure
