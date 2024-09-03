@@ -42,27 +42,6 @@ case "$1" in
         rm -rf isa-l
         ;;
 
-    get-deps)
-        export GFP=`pwd`"/gf-complete"
-        if [ ! -d gf-complete/src/.libs ]; then
-            git clone https://github.com/leo-project/gf-complete.git
-            cd gf-complete
-            ($LIBTOOLIZE && ./autogen.sh && ./configure && $MAKE)
-            cd ..
-        fi
-        if [ ! -d jerasure/src/.libs ]; then
-            git clone https://github.com/leo-project/jerasure.git
-            cd jerasure
-            ($LIBTOOLIZE && autoreconf --install && ./configure LDFLAGS=-L$GFP/src/.libs/ CPPFLAGS=-I$GFP/include && $MAKE)
-            cd ..
-        fi
-        if [ ! -d isa-l/.libs ]; then
-            git clone https://github.com/leo-project/isa-l.git
-            cd isa-l
-            ($LIBTOOLIZE && autoreconf && $CONFIG && $MAKE)
-        fi
-        ;;
-
     *)
         export GFP=`pwd`"/gf-complete"
         if [ ! -d gf-complete/src/.libs ]; then
@@ -78,9 +57,9 @@ case "$1" in
             cd ..
         fi
         if [ ! -d isa-l/.libs ]; then
-            git clone https://github.com/leo-project/isa-l.git
+            git clone -b v2.31.0 -c advice.detachedHead=false https://github.com/intel/isa-l.git
             cd isa-l
-            ($LIBTOOLIZE && autoreconf && $CONFIG && $MAKE)
+            (./autogen.sh && $CONFIG && $MAKE)
         fi
         ;;
 esac
