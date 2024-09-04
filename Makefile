@@ -1,10 +1,8 @@
 .PHONY: deps test
 
-REBAR := ./rebar
+REBAR := ./rebar3
 
 all:
-	@$(REBAR) update-deps
-	@$(REBAR) get-deps
 	@$(REBAR) compile
 	@$(REBAR) xref skip_deps=true
 	@$(REBAR) eunit skip_deps=true
@@ -20,9 +18,8 @@ doc: compile
 	@$(REBAR) doc
 clean:
 	@$(REBAR) clean skip_deps=true
-	rm -rf c_src/isa-l
-	rm -rf c_src/gf-complete
-	rm -rf c_src/jerasure
+	@rm -rf c_src/*.o
 distclean:
-	@$(REBAR) delete-deps
 	@$(REBAR) clean
+	@rm -rf c_src/*.o
+	@rm -rf _build/ priv/ blocks/ .eunit/ rebar.lock
